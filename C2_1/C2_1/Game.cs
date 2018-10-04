@@ -31,7 +31,7 @@ namespace C2_1
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Widht, Hight));
 
             Load();
-            //LoadImage(); //ссылка на метод
+            //LoadImage(); //ссылка на методl
             Timer timer = new Timer { Interval = 100 };
             timer.Start();
             timer.Tick += Timer_Tick;
