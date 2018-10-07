@@ -23,6 +23,7 @@ namespace C2_1
         public virtual void Draw()
         {
             Game.Buffer.Graphics.DrawEllipse(Pens.White, Pos.X, Pos.Y, Size.Width, Size.Height);
+
         }
         public virtual void Update()
         {
@@ -32,14 +33,6 @@ namespace C2_1
             if (Pos.X > Game.Widht) Dir.X = -Dir.X;
             if (Pos.Y < 0) Dir.Y = -Dir.Y;
             if (Pos.Y > Game.Hight) Dir.Y = -Dir.Y;
-        }        
-        //public void CreateImage()
-        //{
-        //    Image newimage = Image.FromFile(@"C:\Users\Михаил\Pictures\Разработка\meteor.jpg");
-        //    Rectangle rect = new Rectangle(Pos.X, Pos.Y, Size.Width, Size.Height);
-        //    Game.Buffer.Graphics.DrawImage(newimage, rect);
-
-        //}
-        
+        }
     }
 }

@@ -4,3 +4,5 @@ F:\VS projects\C2_1\C2_1\bin\Debug\C2_1.pdb
 F:\VS projects\C2_1\C2_1\obj\Debug\C2_1.csprojResolveAssemblyReference.cache
 F:\VS projects\C2_1\C2_1\obj\Debug\C2_1.exe
 F:\VS projects\C2_1\C2_1\obj\Debug\C2_1.pdb
+F:\VS projects\C2_1\C2_1\obj\Debug\C2_1.Properties.Resources.resources
+F:\VS projects\C2_1\C2_1\obj\Debug\C2_1.csproj.GenerateResource.Cache

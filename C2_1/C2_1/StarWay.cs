@@ -13,12 +13,12 @@ namespace C2_1
         public StarWay(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
-        public override void Draw()
+        public override void Draw()//создание стрелочек
         {
             Game.Buffer.Graphics.DrawLine(Pens.Purple, Pos.X, Pos.Y, Pos.X + Size.Width,  Pos.Y + Size.Height);
             Game.Buffer.Graphics.DrawLine(Pens.Purple, Pos.X , Pos.Y, Pos.X,  Pos.Y + Size.Height);
         }
-        public override void Update()
+        public override void Update()// направление - вверх
         {
             //Pos.X = Pos.X - Dir.X;
             Pos.Y = Pos.Y - Dir.Y;
