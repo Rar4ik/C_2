@@ -66,8 +66,15 @@ namespace C2_1
             Graphics g;
             _context = BufferedGraphicsManager.Current;
             g = form.CreateGraphics();
-            Widht = form.ClientSize.Width;
-            Hight = form.ClientSize.Height;
+            try
+            {
+                Widht = form.ClientSize.Width;
+                Hight = form.ClientSize.Height;
+            }
+            catch (ArgumentOutOfRangeException e)
+            {
+                Console.WriteLine("Ширина или высота поля указана некорректно");
+            }
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Widht, Hight));
 
             Load();
