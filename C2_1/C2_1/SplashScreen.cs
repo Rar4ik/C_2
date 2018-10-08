@@ -15,18 +15,30 @@ namespace C2_1
         static Button b = new Button();
         static Button c = new Button();
         static Form form = new Form();
+        /// <summary>
+        /// Добавление кнопок на экран
+        /// </summary>
+        /// <param name="Start">кнопка "Старт"</param>
+        /// <param name="Records">кнопка "Рекорды"</param>
+        /// <param name="Exit">кнопка "Выход"</param>
         private static void Screen(Button Start, Button Records, Button Exit)
         {
             SPS.Controls.Add(Start);
             SPS.Controls.Add(Records);
             SPS.Controls.Add(Exit);
         }
+        /// <summary>
+        /// Присваивание кнопкам текста
+        /// </summary>       
         private static void CreateButton(Button Start, Button Records, Button Exit)
         {
             Start.Text = "Start";
             Records.Text = "Records";
             Exit.Text = "Exit";
         }
+        /// <summary>
+        /// Позиционирование кнопок
+        /// </summary>  
         private static void LocateButton(Button Start, Button Records, Button Exit)
         {
             Start.Location = new Point(10, 10);
@@ -34,13 +46,16 @@ namespace C2_1
             Exit.Location = new Point(Records.Left, Records.Height + Records.Top + 10);
 
         }
+        /// <summary>
+        /// Добавление кликабельности
+        /// </summary>  
         private static void ButtonClick(object sender, EventArgs e)
         {
             string text = (sender as Button).Text.ToString();
             if (text == "Start")
             {
                 MessageBox.Show("Начали");
-                form.Width = 800;
+                form.Width = 1100;
                 form.Height = 600;
                 Game.Init(form);
                 form.Show();
@@ -53,6 +68,9 @@ namespace C2_1
                 Application.Exit();
             }
         }
+        /// <summary>
+        /// Запуск SplashScreen
+        /// </summary>
         public static void Run()
         { 
             Screen(a, b, c);

@@ -8,6 +8,9 @@ using System.Drawing;
 
 namespace C2_1
 {
+/// <summary>
+/// создание объекта "планета - метеорит"
+/// </summary>
     class Meteor: BaseObj
     {
         Image meteor;
@@ -20,9 +23,13 @@ namespace C2_1
             Game.Buffer.Graphics.DrawImage(meteor, Pos.X, Pos.Y, Size.Width, Size.Height);
             
         }
+        /// <summary>
+        /// перемещение метеоритов по прямой
+        /// </summary>
         public override void Update()
         {
-            base.Update();
+            Pos.X = Pos.X - Dir.X;
+            if (Pos.X < 0) Pos.X = Game.Widht + Size.Width;
         }
     }
 }

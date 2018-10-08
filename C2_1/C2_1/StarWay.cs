@@ -8,17 +8,21 @@ using System.Drawing;
 
 namespace C2_1
 {
-    class StarWay: BaseObj
+ /// <summary>
+ /// В данный момент не используетеся 
+ /// </summary>
+    class StarWay : BaseObj
     {
+        
         public StarWay(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
-        public override void Draw()//создание стрелочек
+        public override void Draw()
         {
             Game.Buffer.Graphics.DrawLine(Pens.Purple, Pos.X, Pos.Y, Pos.X + Size.Width,  Pos.Y + Size.Height);
             Game.Buffer.Graphics.DrawLine(Pens.Purple, Pos.X , Pos.Y, Pos.X,  Pos.Y + Size.Height);
         }
-        public override void Update()// направление - вверх
+        public override void Update()
         {
             //Pos.X = Pos.X - Dir.X;
             Pos.Y = Pos.Y - Dir.Y;

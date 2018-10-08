@@ -7,9 +7,12 @@ using System.Drawing;
 
 namespace C2_1
 {
-    class Star: BaseObj
+    /// <summary>
+    /// В данный момент не используетеся 
+    /// </summary>
+    class Star : BaseObj
     {
-        public Star(Point pos, Point dir, Size size): base(pos,dir,size)
+        public Star(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
         }
         public override void Draw()
