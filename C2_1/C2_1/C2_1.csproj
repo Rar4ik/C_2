@@ -50,7 +50,9 @@
     <Compile Include="BaseObj.cs" />
     <Compile Include="Bullet.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="Healing.cs" />
     <Compile Include="ICollision.cs" />
+    <Compile Include="Logger.cs" />
     <Compile Include="Meteor.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

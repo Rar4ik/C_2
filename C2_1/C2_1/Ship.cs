@@ -9,12 +9,22 @@ namespace C2_1
 {
     class Ship : BaseObj
     {
+        private int HP = 100;
         private int _energy = 100;
         public int Energy => _energy;
         public static event Message MessageDie;
         public void EnergyLow(int n)
         {
             _energy -= n;
+        }
+        public void EnergyUP(int n)
+        {
+            if (_energy < HP)
+                _energy += n;
+            else
+            {
+                _energy = HP;
+            }
         }
         public Ship(Point pos, Point dir, Size size) : base(pos, dir, size)
         {

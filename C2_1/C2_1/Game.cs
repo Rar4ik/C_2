@@ -18,6 +18,7 @@ namespace C2_1
 
         private static Bullet _bullet;
         private static Asteroid[] _asteroid;
+        private static Healing[] _heals;
         private static int widht;
         private static int hight;
         private static Ship _ship = new Ship(new Point(10, 400), new Point(5, 5), new Size(10, 10));
@@ -88,13 +89,16 @@ namespace C2_1
         public static void Draw()
         {
             Buffer.Graphics.Clear(Color.Black);
-            Buffer.Graphics.FillEllipse(Brushes.Wheat, new Rectangle(600, 75, 75, 75));
-            //Buffer.Render();
-
+            Buffer.Graphics.FillEllipse(Brushes.Wheat, new Rectangle(600, 75, 75, 75));  
             foreach (BaseObj obj in _objs)
                 obj.Draw();
-            Buffer.Render();
             foreach (Asteroid obj in _asteroid)
+            {
+                obj?.Draw();
+            }
+            _bullet?.Draw();
+            _ship?.Draw();
+            foreach (Healing obj in _heals)
             {
                 obj?.Draw();
             }
@@ -126,20 +130,41 @@ namespace C2_1
                     _bullet = null;
                     continue;
                 }
-                if (!_ship.Collision(_asteroid[i])) continue;
-                var rnd = new Random();
+                if (!_ship.Collision(_asteroid[i]))
+                {
+                    Logger.WriteMessage += Logger.LogToConsole; continue;
+                }
+                    var rnd = new Random();
                 _ship?.EnergyLow(rnd.Next( 1, 10));
                 System.Media.SystemSounds.Asterisk.Play();
                 if (_ship.Energy <= 0) _ship.Die();
-                
             }
-
+            for (var i = 0; i < _heals.Length; i++)
+            {
+                if (_heals[i] == null) continue;
+                _heals[i].Update();
+                if (_bullet != null && _bullet.Collision(_heals[i]))
+                {
+                    System.Media.SystemSounds.Hand.Play();
+                    _heals[i] = null;
+                    _bullet = null;
+                    continue;
+                }
+                if (!_ship.Collision(_heals[i]))
+                {
+                    Logger.WriteMessage += Logger.LogToConsole; continue;
+                }
+                var rnd = new Random();
+                _ship?.EnergyUP(rnd.Next(1, 10));
+                System.Media.SystemSounds.Asterisk.Play();                
+            }
         }
         public static void Load()
         {            
             _objs = new BaseObj[10];
             _bullet = new Bullet(new Point(0, 300), new Point(5, 0), new Size(4, 1));
             _asteroid = new Asteroid[5];
+            _heals = new Healing[4];
             var rnd = new Random();
             for (int i = 0; i < _objs.Length; i++)
             {
@@ -150,6 +175,11 @@ namespace C2_1
             {
                 int r = rnd.Next(5, 50);
                 _asteroid[i] = new Asteroid(new Point(500, rnd.Next(0, Hight)), new Point(r , r), new Size(50, 50));
+            }
+            for (int i = 0; i < _heals.Length; i++)
+            {
+                int r = rnd.Next(5, 50);
+                _heals[i] = new Healing(new Point(500, rnd.Next(0, Hight)), new Point(r, r), new Size(50, 50));
             }         
         }
         private static void Form_KeyDown(object sender, KeyEventArgs e)
