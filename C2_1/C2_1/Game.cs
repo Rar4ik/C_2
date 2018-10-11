@@ -20,6 +20,9 @@ namespace C2_1
         private static Asteroid[] _asteroid;
         private static int widht;
         private static int hight;
+        private static Ship _ship = new Ship(new Point(10, 400), new Point(5, 5), new Size(10, 10));
+        private static Timer timer = new Timer { Interval = 100 };
+            
         /// <summary>
         /// попытка сделать исключение, не работает :(
         /// </summary>
@@ -76,30 +79,30 @@ namespace C2_1
                 Console.WriteLine("Ширина или высота поля указана некорректно");
             }
             Buffer = _context.Allocate(g, new Rectangle(0, 0, Widht, Hight));
-
-            Load();
-            Timer timer = new Timer { Interval = 100 };
             timer.Start();
             timer.Tick += Timer_Tick;
+            Load();
+            form.KeyDown += Form_KeyDown;
+            Ship.MessageDie += Finish;
         }
         public static void Draw()
         {
-
             Buffer.Graphics.Clear(Color.Black);
-            //Buffer.Graphics.DrawRectangle(Pens.White, new Rectangle(100, 100, 200, 200)); 
             Buffer.Graphics.FillEllipse(Brushes.Wheat, new Rectangle(600, 75, 75, 75));
-            Buffer.Render();
+            //Buffer.Render();
 
-            //Buffer.Graphics.Clear(Color.Black); 
             foreach (BaseObj obj in _objs)
                 obj.Draw();
             Buffer.Render();
-
             foreach (Asteroid obj in _asteroid)
-                obj.Draw();
-            _bullet.Draw();
+            {
+                obj?.Draw();
+            }
+            _bullet?.Draw();
+            _ship?.Draw();
+            if (_ship != null)
+                Buffer.Graphics.DrawString("Energy:" + _ship.Energy, SystemFonts.DefaultFont, Brushes.White, 0, 0);
             Buffer.Render();
-
         }
 
         private static void Timer_Tick(object sender, EventArgs e)
@@ -111,17 +114,26 @@ namespace C2_1
         {
             foreach (BaseObj obj in _objs)
                 obj.Update();
-            
-            foreach (Asteroid obj in _asteroid)
+            _bullet?.Update();
+            for (var i = 0; i < _asteroid.Length; i++)
             {
-                obj.Update();
-                if (obj.Collision(_bullet))
+                if (_asteroid[i] == null) continue;
+                _asteroid[i].Update();
+                if(_bullet != null && _bullet.Collision(_asteroid[i]))
                 {
                     System.Media.SystemSounds.Hand.Play();
-                    obj.CollisionObj();
+                    _asteroid[i] = null;
+                    _bullet = null;
+                    continue;
                 }
+                if (!_ship.Collision(_asteroid[i])) continue;
+                var rnd = new Random();
+                _ship?.EnergyLow(rnd.Next( 1, 10));
+                System.Media.SystemSounds.Asterisk.Play();
+                if (_ship.Energy <= 0) _ship.Die();
+                
             }
-            _bullet.Update();           
+
         }
         public static void Load()
         {            
@@ -138,11 +150,20 @@ namespace C2_1
             {
                 int r = rnd.Next(5, 50);
                 _asteroid[i] = new Asteroid(new Point(500, rnd.Next(0, Hight)), new Point(r , r), new Size(50, 50));
-            }
-            //for (int i = _objs.Length / 2; i < _objs.Length; i++)
-            //    _objs[i] = new Star(new Point(600, i * 6), new Point(i / 2, 0), new Size(5, 5));
-            //for (int i = _objs.Length / 4; i < _objs.Length / 2; i++)
-            //    _objs[i] = new StarWay(new Point(10*i, 800), new Point(0, i), new Size(7, 7));            
-        }        
+            }         
+        }
+        private static void Form_KeyDown(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode == Keys.ControlKey) _bullet = new Bullet(new Point(_ship.Rect.X + 10, _ship.Rect.Y + 4), new Point(4, 0), new Size(4, 1));
+            if(e.KeyCode == Keys.Up) _ship.Up();
+            if (e.KeyCode == Keys.Down) _ship.Down();
+        }
+        public static void Finish()
+        {
+            timer.Stop();
+            Buffer.Graphics.DrawString("The End", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.White, 200, 100);
+            Buffer.Render();
+        }
+                
     }
 }

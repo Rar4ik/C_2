@@ -10,8 +10,10 @@ namespace C2_1
 {
     class Bullet: BaseObj
     {
+        public int Power { get; set; } = 1;
         public Bullet(Point pos, Point dir, Size size) : base(pos, dir, size)
         {
+            Power = 1;
         }
         public override void Draw()
         {
@@ -22,8 +24,7 @@ namespace C2_1
         /// </summary>
         public override void Update()
         {
-            Pos.X = Pos.X + Dir.X;
-            if (Pos.X > Game.Widht) Pos.X = 0;
+            Pos.X = Pos.X + 3;         
         }
     }
 }

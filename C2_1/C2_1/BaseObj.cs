@@ -17,6 +17,7 @@ namespace C2_1
         protected Point Pos;
         protected Point Dir;
         protected Size Size;
+        public delegate void Message();
         protected BaseObj(Point pos, Point dir, Size size)
         {
             Pos = pos;
