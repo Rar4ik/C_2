@@ -9,8 +9,8 @@ namespace C2_1
 {
     class Ship : BaseObj
     {
-        private int HP = 100;
-        private int _energy = 100;
+        private int maxHP = 50;
+        private int _energy = 50;
         public int Energy => _energy;
         public static event Message MessageDie;
         public void EnergyLow(int n)
@@ -19,12 +19,9 @@ namespace C2_1
         }
         public void EnergyUP(int n)
         {
-            if (_energy < HP)
-                _energy += n;
-            else
-            {
-                _energy = HP;
-            }
+            if (_energy + n > maxHP)
+                _energy = maxHP;
+            else _energy += n;
         }
         public Ship(Point pos, Point dir, Size size) : base(pos, dir, size)
         {

@@ -41,29 +41,17 @@ namespace C2_1
         /// отражение астероидов от стен
         /// </summary>
         public override void Update()
-        {
-            Pos.X = Pos.X + Dir.X;
-            Pos.Y = Pos.Y + Dir.Y;
-            if (Pos.X < 0) Dir.X = -Dir.X;
-            if (Pos.X > Game.Widht) Dir.X = -Dir.X;
-            if (Pos.Y < 0) Dir.Y = -Dir.Y;
-            if (Pos.Y > Game.Hight) Dir.Y = -Dir.Y;
-            //Pos.X = Pos.X - Dir.X;
-            //if (Pos.X < 0) Pos.X = Game.Widht + Size.Width;
+        {            
+            Pos.X = Pos.X - Dir.X;
+            if (Pos.X < 0) Pos.X = Game.Widht + Size.Width;
         }
         /// <summary>
         /// Добавлена возможность регенирировать метеоры в разных участках карты
         /// </summary>
         public void CollisionObj()
         {
-            var rnd = new Random();
-            int r = rnd.Next(0, 600);
-            Pos.X = r - Dir.X;
-            Pos.Y = r - Dir.X;
-            if (Pos.X < 0) Dir.X = -Dir.X;
-            if (Pos.X > Game.Widht) Dir.X = -Dir.X;
-            if (Pos.Y < 0) Dir.Y = -Dir.Y;
-            if (Pos.Y > Game.Hight) Dir.Y = -Dir.Y;
+            Pos.X = Pos.X - Dir.X;
+            if (Pos.X < 0) Pos.X = Game.Widht + Size.Width;
         }
     }
 }
