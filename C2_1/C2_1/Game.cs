@@ -17,6 +17,8 @@ namespace C2_1
         public static BaseObj[] _objs;
 
         private static List<Bullet> _bullets = new List<Bullet>();
+        //private static List<Asteroid> _asteroids = new List<Asteroid>();
+        private static int MaxAsteroids = 0;
         private static Asteroid[] _asteroid;
         private static Healing[] _heals;
         private static int widht;
@@ -63,7 +65,8 @@ namespace C2_1
             }
         }
         static Game()
-        {      
+        {
+                  
         }
         public static void Init(Form form)
         {
@@ -94,13 +97,11 @@ namespace C2_1
                 obj.Draw();
             foreach (Asteroid obj in _asteroid)
                 obj?.Draw();
-            //_bullet?.Draw();
             _ship?.Draw();
             foreach (Healing obj in _heals)
                 obj?.Draw();
             foreach (Bullet b in _bullets)
                 b.Draw();
-            //_bullets?.Draw();
             _ship?.Draw();
             if (_ship != null)
                 Buffer.Graphics.DrawString("Energy:" + _ship.Energy, SystemFonts.DefaultFont, Brushes.White, 0, 0);
@@ -116,9 +117,9 @@ namespace C2_1
         {
             foreach (BaseObj obj in _objs)
                 obj.Update();
-            //_bullet?.Update();
             foreach (Bullet item in _bullets)
                 item.Update();
+            #region for cicle for asteroids
             for (var i = 0; i < _asteroid.Length; i++)
             {
                 if (_asteroid[i] == null) continue;
@@ -127,12 +128,17 @@ namespace C2_1
                 {
                     if (_asteroid[i] != null && _bullets[j].Collision(_asteroid[i]))
                     {
+                        //_asteroids.Remove(_asteroids[i]);
                         System.Media.SystemSounds.Hand.Play();
                         _asteroid[i] = null;
                         _bullets.RemoveAt(j);
                         j--;
                         Logger.LogtoConsole(Logger.LogThis(Logs.DestroyAst, 0), Logger.Method);
                     }
+                    //if(_asteroids[i] == null && _bullets[j].Collision(_asteroids[i]))
+                    //{
+                    //    _asteroids.Add(new Asteroid(new Point(500, 300), new Point(10, 10), new Size(50, 50)));
+                    //}
                 }                
                 if (_asteroid[i] == null || !_ship.Collision(_asteroid[i])) continue;
                 {                    
@@ -143,6 +149,8 @@ namespace C2_1
                     if (_ship.Energy <= 0)  _ship.Die(); 
                 }                           
             }
+            #endregion
+            #region for cicle for heals
             for (var i = 0; i < _heals.Length; i++)
             {
                 if (_heals[i] == null) continue;
@@ -155,11 +163,14 @@ namespace C2_1
                     System.Media.SystemSounds.Beep.Play();
                 }
             }
+            #endregion            
         }
         public static void Load()
         {            
             _objs = new BaseObj[10];
             _asteroid = new Asteroid[5];
+            //if (_asteroids == null)
+            //_asteroids.AddRange(new Asteroid(new Point(500, 300), new Point(10, 10), new Size(50, 50)));
             _heals = new Healing[4];
             var rnd = new Random();
             for (int i = 0; i < _objs.Length; i++)
@@ -170,7 +181,7 @@ namespace C2_1
             for (var i = 0; i < _asteroid.Length; i++)
             {
                 int r = rnd.Next(5, 50);
-                _asteroid[i] = new Asteroid(new Point(500, rnd.Next(0, Hight)), new Point(r , r), new Size(50, 50));
+                _asteroid[i] = new Asteroid(new Point(500, rnd.Next(0, Hight)), new Point(r, r), new Size(50, 50));
             }
             for (int i = 0; i < _heals.Length; i++)
             {
@@ -187,6 +198,7 @@ namespace C2_1
         public static void Finish()
         {
             timer.Stop();
+            timer.Tick -= Timer_Tick;
             Logger.LogtoConsole(Logger.LogThis(Logs.Die, 0), Logger.Method);
             Buffer.Graphics.DrawString("The End", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.White, 200, 100);
             Buffer.Render();
