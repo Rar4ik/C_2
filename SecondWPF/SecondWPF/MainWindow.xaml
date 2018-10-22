@@ -1,0 +1,34 @@
+﻿<Window x:Class="SecondWPF.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SecondWPF"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="730">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="228*"/>
+            <RowDefinition Height="91*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="140*"/>
+            <ColumnDefinition Width="377*"/>
+        </Grid.ColumnDefinitions>
+        <ListBox x:Name="listBox" HorizontalAlignment="Left" Height="147" Margin="10,10,0,0" VerticalAlignment="Top" Width="120">
+            <Button x:Name="btnWorkers" Content="Сотрудники" Height="43" Width="105" Click="FillDeps"/>
+            <Button x:Name="addWorker" Content="Добавить" Height="43" Width="105" Click="addWorker_Click"/>
+            <Button x:Name="removeWorker" Content="Удалить" Height="43" Width="105" Click="removeWorker_Click"/>
+        </ListBox>
+        <ListView Name="Emploey" Grid.Column="1" Height="208" Margin="10,10,10,0" VerticalAlignment="Top" MouseDoubleClick="Emploey_MouseDoubleClick">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Имя" Width="120" DisplayMemberBinding="{Binding Surname}"/>
+                    <GridViewColumn Header="Возраст" Width="120" DisplayMemberBinding="{Binding Age}"/>
+                    <GridViewColumn Header="Зарплата" Width="120" DisplayMemberBinding="{Binding Salary}"/>
+                    <GridViewColumn Header="Департамент" Width="120" DisplayMemberBinding="{Binding dep}"/>
+                </GridView>                
+        </ListView.View>
+      </ListView>
+    </Grid>
+</Window>
