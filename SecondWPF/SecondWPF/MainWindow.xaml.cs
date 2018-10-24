@@ -27,7 +27,7 @@ namespace SecondWPF
         Random r = new Random();
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
         void FillDeps(object sender, RoutedEventArgs e)
         {
