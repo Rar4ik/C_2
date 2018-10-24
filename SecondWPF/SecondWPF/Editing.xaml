@@ -12,8 +12,9 @@
             <TextBox Text="{Binding Surname, UpdateSourceTrigger = Default}" Margin="5"/>
             <TextBox Text="{Binding Age, UpdateSourceTrigger = Default}" Margin="5"/>
             <TextBox Text="{Binding Salary, UpdateSourceTrigger = LostFocus}" Margin="5"/>
-            <ComboBox Name="DepsList" Text="{Binding dep, UpdateSourceTrigger = LostFocus}" Margin="5"/>
-
+            <ComboBox ItemsSource="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Window}}, Path=Departs}"
+            DisplayMemberPath="NameDep" Margin="5">
+                    </ComboBox>
         </StackPanel>
     </Grid>
 </Window>

@@ -13,5 +13,9 @@ namespace SecondWPF
         {
             return $"{NameDep}\t";
         }
+        public Deps(string NameDep)
+        {
+            this.NameDep = NameDep;
+        }
     }
 }

@@ -31,9 +31,9 @@ namespace SecondWPF
         }
         void FillDeps(object sender, RoutedEventArgs e)
         {
-            Dep.Add(new Deps() { NameDep = "Accounting" });
-            Dep.Add(new Deps() { NameDep = "Marketing" });
-            Dep.Add(new Deps() { NameDep = "Programming" });
+            Dep.Add(new Deps("Accounting"));
+            Dep.Add(new Deps("Marketing"));
+            Dep.Add(new Deps("Programming"));
             ShowWorkers();
         }
         void ShowWorkers()
@@ -46,7 +46,7 @@ namespace SecondWPF
 
         private void Emploey_MouseDoubleClick(object sender, MouseButtonEventArgs e)
         {
-            new Editing(Emploey.SelectedItem as Workers).ShowDialog();
+            new Editing(Emploey.SelectedItem as Workers, Dep).ShowDialog();
         }
 
         private void addWorker_Click(object sender, RoutedEventArgs e)

@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.Collections.ObjectModel;
 
 namespace SecondWPF
 {
@@ -19,12 +20,12 @@ namespace SecondWPF
     /// </summary>
     public partial class Editing : Window
     {
-        public Editing(Workers e)
+        public ObservableCollection<Deps> Departs { get; }
+        public Editing(Workers e, ObservableCollection<Deps> Departs)
         {
-            InitializeComponent();
-            Deps d = new Deps();
-            mainStackPanel.DataContext = e;
-            DepsList.Items.Add(d);
+            this.Departs = Departs;
+            InitializeComponent();           
+            mainStackPanel.DataContext = e;            
         }
     }
 }
